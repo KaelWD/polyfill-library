@@ -38,3 +38,28 @@ it('can remove itself from nothing', function () {
 
 	proclaim.equal(element.childNodes.length, 0);
 });
+
+it('can remove a select', function () {
+	child.remove();
+
+	var select = document.createElement('select');
+	element.appendChild(select);
+
+	proclaim.equal(select.remove(), undefined);
+
+	proclaim.equal(element.childNodes.length, 0);
+});
+
+it('does not break the ability for a select to remove an option', function () {
+	child.remove();
+
+	var select = document.createElement('select');
+	var option = document.createElement('option');
+	element.appendChild(select);
+	select.appendChild(option);
+
+	proclaim.equal(select.remove(0), undefined);
+
+	proclaim.equal(select.childNodes.length, 0);
+	proclaim.equal(element.childNodes.length, 1);
+});
